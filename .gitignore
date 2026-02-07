@@ -1,0 +1,15 @@
+# venv
+.venv/
+venv/
+
+# IDE
+.idea/
+*.iml
+
+# Python cache
+__pycache__/
+*.pyc
+
+# данные/модели
+data/
+models/
