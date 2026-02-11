@@ -12,4 +12,5 @@ __pycache__/
 
 # данные/модели
 data/
-models/
+best_model.pth
+*.pth

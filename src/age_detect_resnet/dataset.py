@@ -38,7 +38,7 @@ class CustomImageDataset(Dataset):
         if self.transform is not None:
             image = self.transform(image)
 
-        age = torch.tensor(age, dtype=torch.long)  # для классификации; для регрессии будет float
+        age = torch.tensor(age, dtype=torch.float32)
         return image, age
 
 
@@ -68,8 +68,8 @@ def create_dataloaders(
     train_df: pd.DataFrame,
     val_df: pd.DataFrame,
     images_root: Path | str,
-    batch_size: int = 64,
-    num_workers: int = 0,
+    batch_size: int = 256,
+    num_workers: int = 8,
 ):
     train_dataset = CustomImageDataset(
         train_df, images_root=images_root, transform=get_train_transforms()
