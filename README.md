@@ -20,6 +20,7 @@
 | train | 5.717     |
 | val   | 6.092     |
 | test  | **5.609** |
+
 *Модель выбиралась по лучшему **val MAE**, статистический разброс на **test** в норме*
 
 - Модель: ResNet50 с предобученными на ImageNet весами и небольшой регрессионной «головой».
@@ -40,6 +41,7 @@ Age_Detect_ResNet/
   │       ├─ model.py
   │       ├─ train.py
   │       ├─ inference.py
+  │       ├─ check_your_age.py
   │       └─ preprocessing/
   │           ├─ __init__.py
   │           ├─ build_meta.py
