@@ -92,7 +92,7 @@ def plot_curves(train_loss, val_loss, train_mae, val_mae):
     plt.show()
 
 
-def evaluate_on_test(model, test_df, images_root, device, criterion):
+def evaluate_on_test(model, test_df, images_root, device):
     test_dataset = CustomImageDataset(
         test_df,
         images_root=images_root,
@@ -135,7 +135,7 @@ def main():
     DATA_RAW = PROJECT_ROOT / "data" / "raw"
 
     df = load_meta(DATA_PROCESSED / "meta.csv")
-    df = filter_age_range(df)
+    df = filter_age_range(df, min_age=10, max_age=75)
 
     df = limit_classes_to_n(df, class_column="age", n=5000)
     train_df, val_df, test_df = split_df_train_val_test(df, stratify_col="age")
@@ -189,11 +189,11 @@ def main():
 
     plot_curves(train_loss_hist, val_loss_hist, train_mae_hist, val_mae_hist)
 
-    test_df = test_df[(test_df["age"] < 60) & (test_df["age"] > 15)]
+    test_df = test_df[(test_df["age"] < 75) & (test_df["age"] > 10)]
     best_model = create_resnet50_regressor(pretrained=False).to(device)
     best_model.load_state_dict(torch.load(PROJECT_ROOT / "best_model.pth", map_location=device))
 
-    evaluate_on_test(best_model, test_df, images_root=DATA_RAW, device=device, criterion=criterion)
+    evaluate_on_test(best_model, test_df, images_root=DATA_RAW, device=device)
 
 
 if __name__ == "__main__":
